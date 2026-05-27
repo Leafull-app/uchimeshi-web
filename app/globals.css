@@ -1,26 +1,119 @@
 @import "tailwindcss";
 
+@theme {
+  --color-primary: #FF6F00;
+  --color-primary-dark: #E65100;
+  --color-primary-light: #FF8F00;
+  --color-secondary: #FFC107;
+  --color-secondary-dark: #F9A825;
+  --color-app-bg: #FFF8F0;
+  --font-sans: var(--font-noto-sans-jp), 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background: #FFF8F0;
+  --foreground: #1a1a1a;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Tailwind v4 generates margin-inline: auto for mx-auto, but margin-left/right works more reliably */
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.article-body h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: 2em;
+  margin-bottom: 0.75em;
+  color: #111827;
+}
+
+.article-body h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-top: 1.75em;
+  margin-bottom: 0.5em;
+  color: #111827;
+}
+
+.article-body h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  color: #1f2937;
+}
+
+.article-body p {
+  margin-bottom: 1.25em;
+  line-height: 1.8;
+}
+
+.article-body ul {
+  list-style-type: disc;
+  padding-left: 1.5em;
+  margin-bottom: 1.25em;
+}
+
+.article-body ol {
+  list-style-type: decimal;
+  padding-left: 1.5em;
+  margin-bottom: 1.25em;
+}
+
+.article-body li {
+  margin-bottom: 0.5em;
+  line-height: 1.7;
+}
+
+.article-body a {
+  color: #FF6F00;
+  text-decoration: underline;
+}
+
+.article-body a:hover {
+  color: #E65100;
+}
+
+.article-body img {
+  border-radius: 0.75rem;
+  max-width: 100%;
+  height: auto;
+  margin: 1.5em 0;
+}
+
+.article-body blockquote {
+  border-left: 4px solid #FFC107;
+  padding-left: 1em;
+  margin: 1.5em 0;
+  color: #4b5563;
+  font-style: italic;
+}
+
+.article-body code {
+  background: #f3f4f6;
+  padding: 0.2em 0.4em;
+  border-radius: 0.25em;
+  font-size: 0.875em;
+}
+
+.article-body pre {
+  background: #1f2937;
+  color: #f9fafb;
+  padding: 1em;
+  border-radius: 0.75rem;
+  overflow-x: auto;
+  margin: 1.5em 0;
+}
+
+.article-body hr {
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  margin: 2em 0;
 }

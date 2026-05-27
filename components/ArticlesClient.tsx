@@ -1,0 +1,173 @@
+'use client';
+
+import { useState, useMemo, useEffect } from 'react';
+import type { Article } from '@/lib/articles';
+import { getAllArticles } from '@/lib/articles';
+import ArticleCard from './ArticleCard';
+import SidebarArticleList from './SidebarArticleList';
+
+const categories = [
+  { value: '', label: 'すべて' },
+  { value: 'recipe', label: '簡単レシピ' },
+  { value: 'saving', label: '節約術' },
+  { value: 'specialty', label: '無添加・オーガニック' },
+];
+
+
+function CategoryFilter({
+  selected,
+  onSelect,
+}: {
+  selected: string;
+  onSelect: (v: string) => void;
+}) {
+  return (
+    <>
+      <h2 className="font-semibold text-gray-900 mb-3 text-sm uppercase tracking-wide">
+        カテゴリ
+      </h2>
+      <div className="flex flex-wrap gap-2 lg:flex-col lg:gap-1">
+        {categories.map(({ value, label }) => (
+          <button
+            key={value}
+            onClick={() => onSelect(value)}
+            className={`px-3 py-2 rounded-lg text-sm font-medium text-left transition-colors ${
+              selected === value
+                ? 'bg-primary text-white'
+                : 'text-gray-600 hover:bg-orange-50 hover:text-primary'
+            }`}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+    </>
+  );
+}
+
+export default function ArticlesClient() {
+  const [articles, setArticles] = useState<Article[] | null | undefined>(undefined);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
+
+  useEffect(() => {
+    getAllArticles().then(setArticles);
+  }, []);
+
+  const filteredArticles = useMemo(() => {
+    if (!articles) return articles ?? null;
+    const q = searchQuery.toLowerCase();
+    return articles.filter((article) => {
+      const matchesCategory =
+        !selectedCategory || article.category === selectedCategory;
+      const matchesSearch =
+        !q ||
+        article.title.toLowerCase().includes(q) ||
+        article.summary.toLowerCase().includes(q);
+      return matchesCategory && matchesSearch;
+    });
+  }, [articles, selectedCategory, searchQuery]);
+
+  const newArticles = useMemo(() => (articles ?? []).slice(0, 3), [articles]);
+  const popularArticles = useMemo(
+    () => [...(articles ?? [])].sort((a, b) => b.views - a.views).slice(0, 3),
+    [articles],
+  );
+
+
+  return (
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <h1 className="text-3xl font-bold text-gray-900 mb-8">記事一覧</h1>
+
+      {/* 検索窓 */}
+      <div className="relative mb-6">
+        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
+          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            />
+          </svg>
+        </div>
+        <input
+          type="search"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder="記事を検索する"
+          className="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+        />
+      </div>
+
+      {/* スマホ：カテゴリ（上部） */}
+      <div className="block lg:hidden bg-white rounded-xl p-4 border border-orange-50 mb-4">
+        <CategoryFilter selected={selectedCategory} onSelect={setSelectedCategory} />
+      </div>
+
+      {/* スマホ：新着・人気 */}
+      <div className="block lg:hidden space-y-4 mb-6">
+        {newArticles.length > 0 && (
+          <div className="bg-white rounded-xl p-4 border border-orange-50">
+            <SidebarArticleList title="新着記事" articles={newArticles} />
+          </div>
+        )}
+        {popularArticles.length > 0 && (
+          <div className="bg-white rounded-xl p-4 border border-orange-50">
+            <SidebarArticleList title="人気記事" articles={popularArticles} />
+          </div>
+        )}
+      </div>
+
+      {/* メインコンテンツ + サイドバー */}
+      <div className="flex gap-8 items-start">
+        {/* 記事グリッド */}
+        <div className="flex-1 min-w-0">
+          {filteredArticles === undefined ? (
+            <div className="text-center py-20">
+              <p className="text-gray-400">読み込み中...</p>
+            </div>
+          ) : filteredArticles === null ? (
+            <div className="text-center py-20 bg-red-50 rounded-2xl border border-red-100">
+              <p className="text-red-500 font-medium">記事の取得に失敗しました</p>
+              <p className="text-red-400 text-sm mt-1">しばらく時間をおいて再度お試しください</p>
+            </div>
+          ) : filteredArticles.length === 0 ? (
+            <div className="text-center py-20 bg-white rounded-2xl border border-orange-50">
+              <p className="text-gray-400 text-lg">該当する記事が見つかりませんでした</p>
+              <p className="text-gray-300 text-sm mt-1">検索条件を変えてお試しください</p>
+            </div>
+          ) : (
+            <>
+              <p className="text-sm text-gray-400 mb-4">{filteredArticles.length}件の記事</p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {filteredArticles.map((article) => (
+                  <ArticleCard key={article.id} article={article} />
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+
+        {/* PC サイドバー */}
+        <aside className="hidden lg:block w-64 shrink-0">
+          <div className="bg-white rounded-2xl p-5 border border-orange-50 sticky top-24 space-y-6">
+            <CategoryFilter selected={selectedCategory} onSelect={setSelectedCategory} />
+            {newArticles.length > 0 && (
+              <>
+                <hr className="border-gray-100" />
+                <SidebarArticleList title="新着記事" articles={newArticles} />
+              </>
+            )}
+            {popularArticles.length > 0 && (
+              <>
+                <hr className="border-gray-100" />
+                <SidebarArticleList title="人気記事" articles={popularArticles} />
+              </>
+            )}
+          </div>
+        </aside>
+      </div>
+    </div>
+  );
+}

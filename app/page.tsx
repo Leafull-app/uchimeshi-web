@@ -1,65 +1,71 @@
-import Image from "next/image";
+import type { Metadata } from 'next';
+import HeroSection from '@/components/HeroSection';
+import ArticleSection from '@/components/ArticleSection';
+import AppIntroSection from '@/components/AppIntroSection';
+import { getLatestArticles, getArticlesByCategory } from '@/lib/articles';
 
-export default function Home() {
+
+export const metadata: Metadata = {
+  title: 'うちメシPlus - 冷蔵庫の食材を賢く管理して食品ロスと食費をゼロに',
+  description:
+    'うちメシPlusは食材管理・食費節約アプリです。冷蔵庫・冷凍庫・常温棚の食材を一元管理し、食品ロスと食費削減を実現します。',
+  openGraph: {
+    title: 'うちメシPlus - 食材管理・食費節約アプリ',
+    description: '冷蔵庫の食材を賢く管理して食品ロスと食費をゼロに',
+  },
+};
+
+export default async function HomePage() {
+  const [newArticles, recipeArticles, savingArticles, organicArticles] = await Promise.all([
+    getLatestArticles(4),
+    getArticlesByCategory('recipe', 4),
+    getArticlesByCategory('saving', 4),
+    getArticlesByCategory('specialty', 4),
+  ]);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <>
+      {/* ① ヒーローエリア */}
+      <HeroSection />
+
+      {/* ② 新着記事 */}
+      <ArticleSection
+        title="新着記事"
+        articles={newArticles}
+        moreHref="/articles"
+        moreLabel="記事一覧をみる"
+        bg="bg-white"
+      />
+
+      {/* ③ 簡単レシピ */}
+      <ArticleSection
+        title="簡単レシピ"
+        articles={recipeArticles}
+        moreHref="/recipe"
+        moreLabel="簡単レシピをもっとみる"
+        bg="bg-app-bg"
+      />
+
+      {/* ④ 節約術 */}
+      <ArticleSection
+        title="節約術"
+        articles={savingArticles}
+        moreHref="/saving"
+        moreLabel="節約術をもっとみる"
+        bg="bg-white"
+      />
+
+      {/* ⑤ 無添加・オーガニック */}
+      <ArticleSection
+        title="無添加・オーガニック"
+        articles={organicArticles}
+        moreHref="/articles"
+        moreLabel="記事一覧をみる"
+        bg="bg-app-bg"
+      />
+
+      {/* ⑥ アプリ紹介 */}
+      <AppIntroSection />
+    </>
   );
 }
