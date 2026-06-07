@@ -59,8 +59,8 @@ export default async function HomePage() {
       <ArticleSection
         title="無添加・オーガニック"
         articles={organicArticles}
-        moreHref="/articles"
-        moreLabel="記事一覧をみる"
+        moreHref="/specialty"
+        moreLabel="無添加・オーガニックをもっとみる"
         bg="bg-app-bg"
       />
 

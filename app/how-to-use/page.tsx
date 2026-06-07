@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'アプリの使い方 | うちメシPlus',
     description: 'うちメシPlusの使い方をステップごとに解説します。',
-    url: 'https://uchimeshi.app/how-to-use',
+    url: 'https://uchimeshi.org/how-to-use',
   },
   twitter: {
     card: 'summary_large_image',

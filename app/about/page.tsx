@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'アプリ | うちメシPlus',
     description: 'うちメシPlusの機能詳細と料金プランをご紹介します。基本機能は無料でご利用いただけます。',
-    url: 'https://uchimeshi.app/about',
+    url: 'https://uchimeshi.org/about',
   },
   twitter: {
     card: 'summary_large_image',

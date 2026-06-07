@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'プライバシーポリシー | うちメシPlus',
     description: 'ウチメシのプライバシーポリシーです。',
-    url: 'https://uchimeshi.app/privacy',
+    url: 'https://uchimeshi.org/privacy',
   },
   twitter: {
     card: 'summary_large_image',

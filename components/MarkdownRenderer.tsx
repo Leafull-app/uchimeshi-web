@@ -8,7 +8,9 @@ function scopeInlineStyles(html: string): string {
         // * { } → .article-body * { }
         .replace(/\*(\s*\{)/g, `.${SCOPE} *$1`)
         // :root { } → .article-body { }  (keeps CSS variables accessible via inheritance)
-        .replace(/:root(\s*\{)/g, `.${SCOPE}$1`);
+        .replace(/:root(\s*\{)/g, `.${SCOPE}$1`)
+        // body { } → .article-body { }  (prevents body styles leaking to the page)
+        .replace(/\bbody\b(\s*\{)/g, `.${SCOPE}$1`);
       return `<style${attrs}>${scoped}</style>`;
     }
   );

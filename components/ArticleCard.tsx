@@ -38,7 +38,7 @@ export default function ArticleCard({ article }: { article: Article }) {
   return (
     <Link href={`/articles/${article.id}`} className="block group h-full">
       <article className="bg-white rounded-2xl overflow-hidden shadow-sm border border-orange-50 hover:shadow-md transition-shadow h-full flex flex-col">
-        <div className="relative h-48 bg-gray-100 flex-shrink-0">
+        <div className="relative aspect-[3/2] bg-gray-100 flex-shrink-0">
           {article.thumbnailURL && isValidUrl(article.thumbnailURL) ? (
             <Image
               src={article.thumbnailURL}

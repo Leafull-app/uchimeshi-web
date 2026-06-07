@@ -107,7 +107,7 @@ export default async function ArticleDetailPage({ params }: Props) {
             <MarkdownRenderer content={article.body} />
 
             {/* SNSシェアボタン */}
-            <ShareButtons url={`https://uchimeshi.app/articles/${article.id}`} title={article.title} />
+            <ShareButtons url={`https://uchimeshi.org/articles/${article.id}`} title={article.title} />
           </article>
 
           {/* PC サイドバー */}

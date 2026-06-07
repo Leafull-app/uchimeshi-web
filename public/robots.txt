@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://uchimeshi.app/sitemap.xml
+Sitemap: https://uchimeshi.org/sitemap.xml

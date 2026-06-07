@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <footer className="bg-gray-900 text-gray-400 py-12 mt-auto">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           <div>
             <div className="flex items-center gap-2 mb-3">
               <span className="text-2xl">🍳</span>
@@ -20,37 +20,46 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-white font-medium mb-3">リンク</h3>
+            <h3 className="text-white font-medium mb-3">コンテンツ</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link
-                  href="/about"
-                  className="hover:text-white transition-colors"
-                >
+                <Link href="/recipe" className="hover:text-white transition-colors">
+                  簡単レシピ
+                </Link>
+              </li>
+              <li>
+                <Link href="/saving" className="hover:text-white transition-colors">
+                  節約術
+                </Link>
+              </li>
+              <li>
+                <Link href="/specialty" className="hover:text-white transition-colors">
+                  無添加・オーガニック
+                </Link>
+              </li>
+              <li>
+                <Link href="/articles" className="hover:text-white transition-colors">
+                  記事一覧
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-white font-medium mb-3">その他</h3>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <Link href="/about" className="hover:text-white transition-colors">
                   アプリ
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/articles"
-                  className="hover:text-white transition-colors"
-                >
-                  記事一覧
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/contact"
-                  className="hover:text-white transition-colors"
-                >
+                <Link href="/contact" className="hover:text-white transition-colors">
                   お問い合わせ
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/privacy"
-                  className="hover:text-white transition-colors"
-                >
+                <Link href="/privacy" className="hover:text-white transition-colors">
                   プライバシーポリシー
                 </Link>
               </li>
