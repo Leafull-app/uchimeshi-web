@@ -13,21 +13,31 @@ const notoSansJP = Noto_Sans_JP({
 
 export const metadata: Metadata = {
   title: {
-    default: 'うちメシPlus - 食材管理・食費節約アプリ',
+    default: 'ウチメシ｜食材管理・食費節約アプリ',
     template: '%s | うちメシPlus',
   },
-  description: 'うちメシPlusは食材管理・食費節約アプリです。冷蔵庫の食材を賢く管理して、食品ロスと食費をゼロに。',
+  description: '冷蔵庫の食材を賢く管理して食品ロスと食費をゼロに。食材の在庫管理・賞味期限通知・食費計算をまとめて管理できるスマートなキッチンアプリです。',
   openGraph: {
-    title: 'うちメシPlus - 食材管理・食費節約アプリ',
-    description: '冷蔵庫の食材を賢く管理して食品ロスと食費をゼロに',
-    type: 'website',
+    title: 'ウチメシ｜食材管理・食費節約アプリ',
+    description: '冷蔵庫の食材を賢く管理して食品ロスと食費をゼロに。',
+    url: 'https://uchimeshi.org',
+    siteName: 'ウチメシ',
+    images: [
+      {
+        url: 'https://uchimeshi.org/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'ウチメシ',
+      },
+    ],
     locale: 'ja_JP',
-    siteName: 'うちメシPlus公式サイト',
+    type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'うちメシPlus - 食材管理・食費節約アプリ',
-    description: '冷蔵庫の食材を賢く管理して食品ロスと食費をゼロに',
+    title: 'ウチメシ｜食材管理・食費節約アプリ',
+    description: '冷蔵庫の食材を賢く管理して食品ロスと食費をゼロに。',
+    images: ['https://uchimeshi.org/og-image.png'],
   },
 };
 
